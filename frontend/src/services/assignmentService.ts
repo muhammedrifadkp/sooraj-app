@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { Assignment } from '../types/assignment';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const assignmentService = {
-    async getAllAssignments(): Promise<Assignment[]> {
+    async getAllAssignments() {
         try {
             const response = await axios.get(`${API_URL}/assignments`);
             return response.data;
@@ -16,7 +15,7 @@ const assignmentService = {
         }
     },
 
-    async getAssignmentById(id: string): Promise<Assignment> {
+    async getAssignmentById(id) {
         try {
             const response = await axios.get(`${API_URL}/assignments/${id}`);
             return response.data;
@@ -28,10 +27,10 @@ const assignmentService = {
         }
     },
 
-    async createAssignment(formData: FormData): Promise<Assignment> {
+    async createAssignment(formData) {
         try {
             console.log('Creating assignment with form data:', Object.fromEntries(formData.entries()));
-            
+
             const response = await axios.post(`${API_URL}/assignments`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -48,10 +47,10 @@ const assignmentService = {
         }
     },
 
-    async updateAssignment(id: string, formData: FormData): Promise<Assignment> {
+    async updateAssignment(id, formData) {
         try {
             console.log('Updating assignment with form data:', Object.fromEntries(formData.entries()));
-            
+
             const response = await axios.put(`${API_URL}/assignments/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -68,7 +67,7 @@ const assignmentService = {
         }
     },
 
-    async deleteAssignment(id: string): Promise<void> {
+    async deleteAssignment(id) {
         try {
             const response = await axios.delete(`${API_URL}/assignments/${id}`, {
                 headers: {
@@ -85,7 +84,7 @@ const assignmentService = {
         }
     },
 
-    async getAssignmentsByCourse(courseId: string): Promise<Assignment[]> {
+    async getAssignmentsByCourse(courseId) {
         try {
             const response = await axios.get(`${API_URL}/assignments/course/${courseId}`);
             return response.data;
@@ -97,7 +96,7 @@ const assignmentService = {
         }
     },
 
-    async getAssignmentsByInstructor(instructorId: string): Promise<Assignment[]> {
+    async getAssignmentsByInstructor(instructorId) {
         try {
             const response = await axios.get(`${API_URL}/assignments/instructor/${instructorId}`);
             return response.data;
@@ -109,7 +108,7 @@ const assignmentService = {
         }
     },
 
-    async submitAssignment(assignmentId: string, answers: { questionId: number; answer: string }[]): Promise<any> {
+    async submitAssignment(assignmentId, answers) {
         try {
             const response = await axios.post(`${API_URL}/assignments/${assignmentId}/submit`, { answers }, {
                 headers: {
@@ -121,19 +120,19 @@ const assignmentService = {
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 // Check for both variations of the "already submitted" error message
-                if (error.response?.status === 400 && 
-                    (error.response?.data?.message?.includes('already submitted') || 
-                     error.response?.data?.message?.includes('You have already submitted this assignment') ||
-                     error.response?.data?.message?.includes('already submitted this assignment'))) {
+                if (error.response?.status === 400 &&
+                    (error.response?.data?.message?.includes('already submitted') ||
+                        error.response?.data?.message?.includes('You have already submitted this assignment') ||
+                        error.response?.data?.message?.includes('already submitted this assignment'))) {
                     console.log('Detected already submitted error:', error.response?.data?.message);
                     console.log('Error response data:', error.response?.data);
-                    
+
                     // If the server returned the submission data, use it
                     if (error.response?.data?.submission) {
                         console.log('Server returned submission data:', error.response.data.submission);
                         throw new Error('You have already submitted this assignment');
                     }
-                    
+
                     throw new Error('You have already submitted this assignment');
                 }
                 const errorMessage = error.response?.data?.message || 'Failed to submit assignment';
@@ -143,7 +142,7 @@ const assignmentService = {
         }
     },
 
-    async getAssignmentSubmission(assignmentId: string): Promise<any> {
+    async getAssignmentSubmission(assignmentId) {
         try {
             const response = await axios.get(`${API_URL}/assignments/${assignmentId}/submission`, {
                 headers: {
@@ -157,7 +156,7 @@ const assignmentService = {
                 if (error.response?.status === 404) {
                     return { submission: null };
                 }
-                
+
                 console.error('Error fetching assignment submission:', error.response?.data);
                 throw new Error(error.response?.data?.message || 'Failed to fetch submission');
             }
@@ -166,4 +165,4 @@ const assignmentService = {
     }
 };
 
-export default assignmentService; 
+export default assignmentService;

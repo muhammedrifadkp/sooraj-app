@@ -5,37 +5,37 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  }
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    }
 });
 
 // Add request interceptor to include auth token
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const url = config.url || '';
-  const baseURL = config.baseURL || '';
+    const url = config.url || '';
+    const baseURL = config.baseURL || '';
 
-  console.log('Request interceptor - Request URL:', url);
-  console.log('Request interceptor - Request method:', config.method);
-  console.log('Request interceptor - Request baseURL:', baseURL);
-  console.log('Request interceptor - Full URL:', baseURL + url);
+    console.log('Request interceptor - Request URL:', url);
+    console.log('Request interceptor - Request method:', config.method);
+    console.log('Request interceptor - Request baseURL:', baseURL);
+    console.log('Request interceptor - Full URL:', baseURL + url);
 
-  const token = localStorage.getItem('token');
-  if (token) {
-    if (!config.headers) {
-      config.headers = new AxiosHeaders({
-        'Content-Type': 'application/json'
-      });
+    const token = localStorage.getItem('token');
+    if (token) {
+        if (!config.headers) {
+            config.headers = new AxiosHeaders({
+                'Content-Type': 'application/json'
+            });
+        }
+        config.headers.Authorization = `Bearer ${token}`;
+        console.log('Setting auth token:', token.substring(0, 10) + '...');
+        console.log('Request headers:', JSON.stringify(config.headers));
     }
-    config.headers.Authorization = `Bearer ${token}`;
-    console.log('Setting auth token:', token.substring(0, 10) + '...');
-    console.log('Request headers:', JSON.stringify(config.headers));
-  }
-  return config;
+    return config;
 }, (error) => {
-  console.error('Request interceptor error:', error);
-  return Promise.reject(error);
+    console.error('Request interceptor error:', error);
+    return Promise.reject(error);
 });
 
 // Add response interceptor to handle token expiration and duplicate attendance
@@ -95,9 +95,9 @@ api.interceptors.response.use(
 
 // Auth API
 export const authAPI = {
-  login: async (email: string, password: string) => {
+    login: async (email: string, password: string) => {
         try {
-    const response = await api.post('/auth/login', { email, password });
+            const response = await api.post('/auth/login', { email, password });
             const { user, token } = response.data;
 
             console.log('Login API response data:', response.data);
@@ -265,7 +265,7 @@ export const assignmentAPI = {
     getAssignment: async (id: string) => {
         try {
             const response = await api.get(`/assignments/${id}`);
-    return response.data;
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to fetch assignment');
@@ -281,7 +281,7 @@ export const assignmentAPI = {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    return response.data;
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to update assignment');
@@ -344,7 +344,7 @@ export const liveClassAPI = {
     getLiveClass: async (id: string) => {
         try {
             const response = await api.get(`/admin/live-classes/${id}`);
-    return response.data;
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to fetch live class');
@@ -357,7 +357,7 @@ export const liveClassAPI = {
         try {
             console.log('Creating live class with data:', data);
             const response = await api.post('/admin/live-classes', data);
-    return response.data;
+            return response.data;
         } catch (error) {
             console.error('API Error:', error);
             if (axios.isAxiosError(error)) {
@@ -376,7 +376,7 @@ export const liveClassAPI = {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    return response.data;
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to update live class');
@@ -388,7 +388,7 @@ export const liveClassAPI = {
     deleteLiveClass: async (id: string) => {
         try {
             const response = await api.delete(`/admin/live-classes/${id}`);
-    return response.data;
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to delete live class');
@@ -409,7 +409,7 @@ export const liveClassAPI = {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    return response.data;
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to upload materials');
@@ -421,19 +421,19 @@ export const liveClassAPI = {
 
 // Course API
 export const courseAPI = {
-  // Check if course is completed (all assignments graded above 60%)
-  async checkCourseCompletion(id: string) {
-    try {
-      const response = await api.get(`/courses/${id}/check-completion`);
-      return response.data;
-    } catch (error) {
-      console.error('Error checking course completion:', error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to check course completion');
-      }
-      throw error;
-    }
-  },
+    // Check if course is completed (all assignments graded above 60%)
+    async checkCourseCompletion(id: string) {
+        try {
+            const response = await api.get(`/courses/${id}/check-completion`);
+            return response.data;
+        } catch (error) {
+            console.error('Error checking course completion:', error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to check course completion');
+            }
+            throw error;
+        }
+    },
 
     getAllCourses: () => api.get('/courses'),
     getCourse: (id: string) => api.get(`/courses/${id}`),
@@ -481,17 +481,17 @@ export const courseAPI = {
     getCourseAssignments: (id: string) => api.get(`/courses/${id}/assignments`),
     getCourseStudents: (id: string) => api.get(`/courses/${id}/students`),
     getCourseProgress(id: string) {
-    return api.get(`/courses/${id}/progress`);
-  },
+        return api.get(`/courses/${id}/progress`);
+    },
 
-  updateCourseProgress(id: string, data: any) {
-    return api.put(`/courses/${id}/progress`, data);
-  }
+    updateCourseProgress(id: string, data: any) {
+        return api.put(`/courses/${id}/progress`, data);
+    }
 };
 
 // User API
 export const userAPI = {
-  getCurrentUser: async () => {
+    getCurrentUser: async () => {
         try {
             const response = await api.get('/users/me');
             return response.data;
@@ -505,8 +505,8 @@ export const userAPI = {
 
     getProfile: async () => {
         try {
-    const response = await api.get('/users/me');
-    return response.data;
+            const response = await api.get('/users/me');
+            return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 throw new Error(error.response?.data?.message || 'Failed to fetch profile');
@@ -562,21 +562,21 @@ export const userAPI = {
 
 // Certificate API
 export const certificateAPI = {
-  // Download certificate as PDF
-  async downloadCertificate(courseId: string) {
-    try {
-      const response = await api.get(`/certificates/download/${courseId}`, {
-        responseType: 'blob'
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error downloading certificate:', error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to download certificate');
-      }
-      throw error;
-    }
-  },
+    // Download certificate as PDF
+    async downloadCertificate(courseId: string) {
+        try {
+            const response = await api.get(`/certificates/download/${courseId}`, {
+                responseType: 'blob'
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error downloading certificate:', error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to download certificate');
+            }
+            throw error;
+        }
+    },
 
     getMyCertificates: async () => {
         try {
@@ -677,40 +677,40 @@ export const certificateAPI = {
 
 // Attendance API
 export const attendanceAPI = {
-  // Get my attendance records
-  getMyAttendance: async () => {
-    try {
-      const response = await api.get('/attendance/my-attendance');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching attendance records:', error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch attendance records');
-      }
-      throw error;
-    }
-  },
-
-  // Mark attendance based on login
-  markLoginAttendance: async () => {
-    try {
-      const response = await api.post('/attendance/student/mark-login');
-      return response.data;
-    } catch (error) {
-      console.error('Error marking login attendance:', error);
-      if (axios.isAxiosError(error)) {
-        if (error.response?.data?.message?.includes('duplicate')) {
-          return {
-            success: true,
-            attendance: true,
-            message: 'Attendance already marked for today'
-          };
+    // Get my attendance records
+    getMyAttendance: async () => {
+        try {
+            const response = await api.get('/attendance/my-attendance');
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching attendance records:', error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to fetch attendance records');
+            }
+            throw error;
         }
-        throw new Error(error.response?.data?.message || 'Failed to mark login attendance');
-      }
-      throw error;
+    },
+
+    // Mark attendance based on login
+    markLoginAttendance: async () => {
+        try {
+            const response = await api.post('/attendance/student/mark-login');
+            return response.data;
+        } catch (error) {
+            console.error('Error marking login attendance:', error);
+            if (axios.isAxiosError(error)) {
+                if (error.response?.data?.message?.includes('duplicate')) {
+                    return {
+                        success: true,
+                        attendance: true,
+                        message: 'Attendance already marked for today'
+                    };
+                }
+                throw new Error(error.response?.data?.message || 'Failed to mark login attendance');
+            }
+            throw error;
+        }
     }
-  }
 };
 
 // OTP API
@@ -839,173 +839,173 @@ export const holidayAPI = {
 
 // GradedResult API
 export const gradedResultAPI = {
-  // Test endpoint to verify router is working
-  async testConnection() {
-    try {
-      const fullUrl = `${API_URL}/graded-results/test`;
-      console.log('Testing connection to:', fullUrl);
+    // Test endpoint to verify router is working
+    async testConnection() {
+        try {
+            const fullUrl = `${API_URL}/graded-results/test`;
+            console.log('Testing connection to:', fullUrl);
 
-      try {
-        const response = await api.get('/graded-results/test');
-        console.log('Test response:', response);
-        return response.data;
-      } catch (firstError) {
-        console.error('First test attempt failed, trying direct axios call:', firstError);
+            try {
+                const response = await api.get('/graded-results/test');
+                console.log('Test response:', response);
+                return response.data;
+            } catch (firstError) {
+                console.error('First test attempt failed, trying direct axios call:', firstError);
 
-        // Try a direct axios call as fallback
-        const directResponse = await axios.get(fullUrl);
-        console.log('Direct test response:', directResponse);
-        return directResponse.data;
-      }
-    } catch (error) {
-      console.error('Test connection failed:', error);
-      if (axios.isAxiosError(error)) {
-        console.error('Test response status:', error.response?.status);
-        console.error('Test response data:', error.response?.data);
-      }
-      throw error;
+                // Try a direct axios call as fallback
+                const directResponse = await axios.get(fullUrl);
+                console.log('Direct test response:', directResponse);
+                return directResponse.data;
+            }
+        } catch (error) {
+            console.error('Test connection failed:', error);
+            if (axios.isAxiosError(error)) {
+                console.error('Test response status:', error.response?.status);
+                console.error('Test response data:', error.response?.data);
+            }
+            throw error;
+        }
+    },
+
+    // Debug method to test results without authentication
+    async getDebugResults() {
+        try {
+            const fullUrl = `${API_URL}/graded-results/debug/my-results`;
+            console.log('Getting debug results from:', fullUrl);
+
+            try {
+                const response = await api.get('/graded-results/debug/my-results');
+                console.log('Debug response:', response);
+                return response.data;
+            } catch (firstError) {
+                console.error('Debug attempt failed, trying direct axios call:', firstError);
+
+                // Try a direct axios call as fallback
+                const directResponse = await axios.get(fullUrl);
+                console.log('Direct debug response:', directResponse);
+                return directResponse.data;
+            }
+        } catch (error) {
+            console.error('Debug request failed:', error);
+            if (axios.isAxiosError(error)) {
+                console.error('Debug response status:', error.response?.status);
+                console.error('Debug response data:', error.response?.data);
+            }
+            throw error;
+        }
+    },
+
+    // Get all graded results (admin only)
+    async getAll() {
+        try {
+            const response = await api.get('/graded-results');
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching all graded results:', error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to fetch graded results');
+            }
+            throw error;
+        }
+    },
+
+    // Get a specific graded result by ID
+    async getById(id: string) {
+        try {
+            const response = await api.get(`/graded-results/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching graded result with ID ${id}:`, error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to fetch graded result');
+            }
+            throw error;
+        }
+    },
+
+    // Get graded result for a specific assignment
+    async getByAssignmentId(assignmentId: string) {
+        try {
+            const response = await api.get(`/graded-results/assignment/${assignmentId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching graded result for assignment ${assignmentId}:`, error);
+            if (axios.isAxiosError(error) && error.response?.status === 404) {
+                // Special case for 404 - not found, which is expected when a student hasn't submitted yet
+                console.log('No graded result found - student likely has not submitted yet');
+                return null;
+            }
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to fetch graded result for assignment');
+            }
+            throw error;
+        }
+    },
+
+    // Get all graded results for current student
+    async getMyResults() {
+        try {
+            const fullUrl = `${API_URL}/graded-results/student/my-results`;
+            console.log('Fetching graded results from:', fullUrl);
+
+            const token = localStorage.getItem('token');
+            console.log('Using token:', token ? 'Token present' : 'No token found');
+
+            try {
+                const response = await api.get('/graded-results/student/my-results');
+                console.log('Graded results response:', response);
+                return response.data;
+            } catch (firstError) {
+                console.error('First attempt failed, trying direct axios call:', firstError);
+
+                // Try a direct axios call as fallback
+                const directResponse = await axios.get(fullUrl, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token ? `Bearer ${token}` : ''
+                    }
+                });
+                console.log('Direct axios response:', directResponse);
+                return directResponse.data;
+            }
+        } catch (error) {
+            console.error('Error fetching my graded results:', error);
+            if (axios.isAxiosError(error)) {
+                console.error('Response status:', error.response?.status);
+                console.error('Response data:', error.response?.data);
+                throw new Error(error.response?.data?.message || 'Failed to fetch your graded results');
+            }
+            throw error;
+        }
+    },
+
+    // Get all graded results for a specific course (instructor only)
+    async getByCourse(courseId: string) {
+        try {
+            const response = await api.get(`/graded-results/course/${courseId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching graded results for course ${courseId}:`, error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to fetch graded results for course');
+            }
+            throw error;
+        }
+    },
+
+    // Update a graded result (instructor only)
+    async update(id: string, data: any) {
+        try {
+            const response = await api.put(`/graded-results/${id}`, data);
+            return response.data;
+        } catch (error) {
+            console.error(`Error updating graded result ${id}:`, error);
+            if (axios.isAxiosError(error)) {
+                throw new Error(error.response?.data?.message || 'Failed to update graded result');
+            }
+            throw error;
+        }
     }
-  },
-
-  // Debug method to test results without authentication
-  async getDebugResults() {
-    try {
-      const fullUrl = `${API_URL}/graded-results/debug/my-results`;
-      console.log('Getting debug results from:', fullUrl);
-
-      try {
-        const response = await api.get('/graded-results/debug/my-results');
-        console.log('Debug response:', response);
-        return response.data;
-      } catch (firstError) {
-        console.error('Debug attempt failed, trying direct axios call:', firstError);
-
-        // Try a direct axios call as fallback
-        const directResponse = await axios.get(fullUrl);
-        console.log('Direct debug response:', directResponse);
-        return directResponse.data;
-      }
-    } catch (error) {
-      console.error('Debug request failed:', error);
-      if (axios.isAxiosError(error)) {
-        console.error('Debug response status:', error.response?.status);
-        console.error('Debug response data:', error.response?.data);
-      }
-      throw error;
-    }
-  },
-
-  // Get all graded results (admin only)
-  async getAll() {
-    try {
-      const response = await api.get('/graded-results');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching all graded results:', error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch graded results');
-      }
-      throw error;
-    }
-  },
-
-  // Get a specific graded result by ID
-  async getById(id: string) {
-    try {
-      const response = await api.get(`/graded-results/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching graded result with ID ${id}:`, error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch graded result');
-      }
-      throw error;
-    }
-  },
-
-  // Get graded result for a specific assignment
-  async getByAssignmentId(assignmentId: string) {
-    try {
-      const response = await api.get(`/graded-results/assignment/${assignmentId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching graded result for assignment ${assignmentId}:`, error);
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        // Special case for 404 - not found, which is expected when a student hasn't submitted yet
-        console.log('No graded result found - student likely has not submitted yet');
-        return null;
-      }
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch graded result for assignment');
-      }
-      throw error;
-    }
-  },
-
-  // Get all graded results for current student
-  async getMyResults() {
-    try {
-      const fullUrl = `${API_URL}/graded-results/student/my-results`;
-      console.log('Fetching graded results from:', fullUrl);
-
-      const token = localStorage.getItem('token');
-      console.log('Using token:', token ? 'Token present' : 'No token found');
-
-      try {
-        const response = await api.get('/graded-results/student/my-results');
-        console.log('Graded results response:', response);
-        return response.data;
-      } catch (firstError) {
-        console.error('First attempt failed, trying direct axios call:', firstError);
-
-        // Try a direct axios call as fallback
-        const directResponse = await axios.get(fullUrl, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token ? `Bearer ${token}` : ''
-          }
-        });
-        console.log('Direct axios response:', directResponse);
-        return directResponse.data;
-      }
-    } catch (error) {
-      console.error('Error fetching my graded results:', error);
-      if (axios.isAxiosError(error)) {
-        console.error('Response status:', error.response?.status);
-        console.error('Response data:', error.response?.data);
-        throw new Error(error.response?.data?.message || 'Failed to fetch your graded results');
-      }
-      throw error;
-    }
-  },
-
-  // Get all graded results for a specific course (instructor only)
-  async getByCourse(courseId: string) {
-    try {
-      const response = await api.get(`/graded-results/course/${courseId}`);
-    return response.data;
-    } catch (error) {
-      console.error(`Error fetching graded results for course ${courseId}:`, error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to fetch graded results for course');
-      }
-      throw error;
-    }
-  },
-
-  // Update a graded result (instructor only)
-  async update(id: string, data: any) {
-    try {
-      const response = await api.put(`/graded-results/${id}`, data);
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating graded result ${id}:`, error);
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message || 'Failed to update graded result');
-      }
-      throw error;
-    }
-  }
 };
 
 export default api;

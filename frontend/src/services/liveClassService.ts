@@ -17,19 +17,19 @@ const getAuthHeader = () => {
 const liveClassService = {
     getAllLiveClasses: async (userRole?: string): Promise<LiveClass[]> => {
         try {
-            const endpoint = userRole === 'admin' 
+            const endpoint = userRole === 'admin'
                 ? `${API_URL}/admin/live-classes`
                 : `${API_URL}/student/live-classes`;
-                
+
             console.log('Fetching live classes from endpoint:', endpoint);
             const response = await axios.get(endpoint, {
                 headers: getAuthHeader()
             });
-            
+
             // Ensure we always return an array
             const liveClasses = Array.isArray(response.data) ? response.data : [];
             console.log(`Received ${liveClasses.length} live classes`);
-            
+
             return liveClasses;
         } catch (error) {
             console.error('Error fetching live classes:', error);
@@ -59,10 +59,10 @@ const liveClassService = {
         try {
             // Log the data being sent
             console.log('Creating live class with data:', data);
-            
+
             // Check if data is FormData
             const isFormData = data instanceof FormData;
-            
+
             // Validate required fields
             const requiredFields = ['title', 'description', 'course', 'startTime', 'duration', 'maxParticipants', 'meetingLink'];
             const missingFields = requiredFields.filter(field => {
@@ -96,10 +96,10 @@ const liveClassService = {
         try {
             // Log the data being sent
             console.log('Updating live class with data:', data);
-            
+
             // Check if data is FormData
             const isFormData = data instanceof FormData;
-            
+
             // Validate required fields
             const requiredFields = ['title', 'description', 'course', 'startTime', 'duration', 'maxParticipants', 'meetingLink'];
             const missingFields = requiredFields.filter(field => {

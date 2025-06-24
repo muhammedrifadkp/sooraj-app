@@ -52,20 +52,20 @@ const courseService = {
             return response.data;
         } catch (error) {
             console.error('Error creating course:', error);
-            
+
             if (axios.isAxiosError(error)) {
                 // Log detailed error information
                 console.error('Response status:', error.response?.status);
                 console.error('Response data:', error.response?.data);
-                
-                const errorMessage = error.response?.data?.message 
-                    || error.response?.data?.error 
-                    || error.message 
+
+                const errorMessage = error.response?.data?.message
+                    || error.response?.data?.error
+                    || error.message
                     || 'Failed to create course';
-                    
+
                 throw new Error(errorMessage);
             }
-            
+
             throw new Error('Failed to create course. Please try again.');
         }
     },
@@ -123,7 +123,7 @@ const courseService = {
             return response.data;
         } catch (error) {
             console.error('Error updating course:', error);
-            
+
             if (axios.isAxiosError(error)) {
                 // Enhanced error logging
                 console.error('Full error details:', {
@@ -140,41 +140,41 @@ const courseService = {
                         maxContentLength: error.config?.maxContentLength
                     }
                 });
-                
+
                 if (error.response?.status === 413) {
                     throw new Error('File size too large. Please reduce the size of your files.');
                 }
-                
+
                 if (error.response?.status === 400) {
                     const message = error.response.data?.message || error.response.data?.error;
                     throw new Error(message || 'Invalid course data. Please check your input.');
                 }
-                
+
                 if (error.response?.status === 401) {
                     throw new Error('Session expired. Please log in again.');
                 }
-                
+
                 if (error.response?.status === 403) {
                     throw new Error('You do not have permission to update this course.');
                 }
-                
+
                 if (error.response?.status === 404) {
                     throw new Error('Course not found.');
                 }
-                
+
                 if (error.response?.status === 500) {
                     const serverError = error.response.data?.message || error.response.data?.error;
                     throw new Error(serverError || 'Server error. Please try again later.');
                 }
-                
-                const errorMessage = error.response?.data?.message 
-                    || error.response?.data?.error 
-                    || error.message 
+
+                const errorMessage = error.response?.data?.message
+                    || error.response?.data?.error
+                    || error.message
                     || 'Failed to update course';
-                    
+
                 throw new Error(errorMessage);
             }
-            
+
             throw new Error('Failed to update course. Please try again.');
         }
     },
@@ -209,4 +209,4 @@ const courseService = {
     }
 };
 
-export default courseService; 
+export default courseService;

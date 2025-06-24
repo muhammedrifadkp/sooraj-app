@@ -27,4 +27,4 @@ export interface LiveClass {
     recordingUrl?: string;
     createdAt: string;
     updatedAt: string;
-} 
+}

@@ -1,3 +1,5 @@
+// This file is deprecated and should not be used. Please use AuthContext.jsx instead.
+
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { authAPI, attendanceAPI } from '../services/api';
 import axios from 'axios';

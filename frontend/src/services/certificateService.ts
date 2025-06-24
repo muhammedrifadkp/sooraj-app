@@ -2,7 +2,7 @@ import { API_URL } from '../config';
 import { authHeader } from '../utils/authHeader.ts';
 
 class CertificateService {
-    async generateCourseCompletionCertificate(courseId: string) {
+    async generateCourseCompletionCertificate(courseId) {
         try {
             const response = await fetch(`${API_URL}/certificates/course-completion`, {
                 method: 'POST',
@@ -41,7 +41,7 @@ class CertificateService {
         }
     }
 
-    async getCourseCertificates(courseId: string) {
+    async getCourseCertificates(courseId) {
         try {
             const response = await fetch(`${API_URL}/certificates/course/${courseId}`, {
                 headers: authHeader() as HeadersInit

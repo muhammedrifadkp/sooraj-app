@@ -45,4 +45,4 @@ export interface Assignment {
     }[];
     createdAt: string;
     updatedAt: string;
-} 
+}
