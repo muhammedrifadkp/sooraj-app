@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaUserGraduate, FaUserTie, FaArrowRight } from 'react-icons/fa';
-import styles from '../components/Auth/AuthLayout.module.css';
-import AuthLayout from '../components/Auth/AuthLayout';
+import styles from '../components/auth/AuthLayout.module.css';
+import AuthLayout from '../components/auth/AuthLayout';
 
 const SelectRole = () => {
   const navigate = useNavigate();

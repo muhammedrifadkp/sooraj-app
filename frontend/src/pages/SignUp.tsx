@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthLayout from '../components/Auth/AuthLayout';
-import RegisterForm from '../components/Auth/RegisterForm';
+import AuthLayout from '../components/auth/AuthLayout';
+import RegisterForm from '../components/auth/RegisterForm';
 
 const SignUp = () => {
   return (
