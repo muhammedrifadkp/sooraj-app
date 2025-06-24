@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles/globals.css';
 
 // Import components
-import Layout from './components/Layout/Layout';
+import Layout from './components/layout/Layout';
 import Login from './pages/Login';
 import AdminLogin from './pages/AdminLogin';
 import AdminSignUp from './pages/AdminSignUp';
