@@ -1,0 +1,62 @@
+/* Add smooth transitions for buttons */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Progress indicator styling */
+.progress-indicator {
+  display: flex;
+  align-items: center;
+  background-color: #f0fff4;
+  border: 1px solid #c6f6d5;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.progress-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #48bb78;
+  margin-right: 10px;
+}
+
+/* Enhance the built-in animate-pulse with a custom animation */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(72, 187, 120, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(72, 187, 120, 0);
+  }
+}
+
+.progress-dot {
+  animation: glowing 2s infinite;
+}
+
+/* Question highlighting when in progress */
+.question-in-progress {
+  border-left: 3px solid #48bb78;
+}
+
+/* Add a subtle highlight to questions with answers */
+.question-answered {
+  background-color: #f0fff4 !important;
+  border-left: 3px solid #48bb78;
+}
+
+/* Add transition for the answers to make interactions smoother */
+.answer-input {
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.answer-input:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+} 
