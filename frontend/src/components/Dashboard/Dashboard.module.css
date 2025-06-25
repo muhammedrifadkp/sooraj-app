@@ -1,0 +1,323 @@
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.welcomeSection {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.welcomePattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 60%);
+  background-size: 20px 20px;
+  opacity: 0.2;
+}
+
+.welcomeTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.welcomeSubtitle {
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-lg);
+  max-width: 600px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.statCard {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-default);
+  border-left: 4px solid var(--color-primary);
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.statIcon {
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(17, 37, 75, 0.1);
+  border-radius: var(--border-radius-full);
+}
+
+.statValue {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.statLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-gray);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.sectionIcon {
+  color: var(--color-accent);
+}
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.courseCard {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-default);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.courseCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.courseImage {
+  height: 160px;
+  background-color: var(--color-medium-gray);
+  position: relative;
+  overflow: hidden;
+}
+
+.courseImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.courseProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.courseProgressBar {
+  height: 100%;
+  background-color: var(--color-success);
+}
+
+.courseContent {
+  padding: var(--spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.courseInstructor {
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-gray);
+  margin-bottom: var(--spacing-md);
+}
+
+.courseStats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-light-gray);
+}
+
+.courseStat {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-gray);
+}
+
+.courseStatIcon {
+  margin-right: var(--spacing-xs);
+  color: var(--color-accent);
+}
+
+.upcomingSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.assignmentsList, .eventsList {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.listTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItemIcon {
+  font-size: var(--font-size-xl);
+  color: var(--color-accent);
+  margin-right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(62, 111, 191, 0.1);
+  border-radius: var(--border-radius-full);
+}
+
+.listItemContent {
+  flex: 1;
+}
+
+.listItemTitle {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.listItemMeta {
+  display: flex;
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-gray);
+}
+
+.listItemDate {
+  display: flex;
+  align-items: center;
+  margin-right: var(--spacing-md);
+}
+
+.listItemDateIcon {
+  margin-right: var(--spacing-xs);
+}
+
+.listItemCourse {
+  display: flex;
+  align-items: center;
+}
+
+.listItemCourseIcon {
+  margin-right: var(--spacing-xs);
+}
+
+.listItemStatus {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.statusPending {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.statusCompleted {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}
+
+.statusUpcoming {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--color-info);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .upcomingSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcomeSection {
+    padding: var(--spacing-lg);
+  }
+  
+  .welcomeTitle {
+    font-size: var(--font-size-xl);
+  }
+  
+  .welcomeSubtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .coursesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
